@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url(./styles/reset.scss);
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    font-weight: normal;
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+}
+body {
+    overflow-x: hidden;
+    background-color: white;
+}
+img {
+    object-fit: cover;
+    object-position: center;
+}
