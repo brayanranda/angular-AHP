@@ -14,6 +14,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { ImageComponent } from './components/layout/image/image.component';
 import { RegisterDeciderComponent } from './components/register-decider/register-decider.component';
 import { NavComponent } from './components/layout/nav/nav.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChartComponent } from './components/chart/chart.component';
+import { ListProblemComponent } from './components/list-problem/list-problem.component';
+import { ListDeciderComponent } from './components/list-decider/list-decider.component';
+import { RegisterProblemComponent } from './components/register-problem/register-problem.component';
+import { InputComponent } from './components/layout/input/input.component';
+import { TextareaComponent } from './components/layout/textarea/textarea.component';
+import { ButtonComponent } from './components/layout/button/button.component';
+import { ProblemComponent } from './components/problem/problem.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +36,14 @@ import { NavComponent } from './components/layout/nav/nav.component';
     ImageComponent,
     RegisterDeciderComponent,
     NavComponent,
+    ChartComponent,
+    ListProblemComponent,
+    ListDeciderComponent,
+    RegisterProblemComponent,
+    InputComponent,
+    TextareaComponent,
+    ButtonComponent,
+    ProblemComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +51,7 @@ import { NavComponent } from './components/layout/nav/nav.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

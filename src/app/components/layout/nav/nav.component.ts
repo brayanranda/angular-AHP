@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faArrowRightFromBracket, faChartColumn, faUser, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -9,8 +10,12 @@ export class NavComponent implements OnInit {
   logo:any = './assets/images/min-logo-white.png';
 
   constructor() { }
-
+  
   ngOnInit(): void {
   }
+  faUser = faUser;
+  faXmarkSquare = faXmarkSquare;
+  faChartColumn = faChartColumn;
+  faArrowRightFromBracket = faArrowRightFromBracket;
 
 }

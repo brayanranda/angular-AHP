@@ -1,34 +1,28 @@
-<nav class="bg-indigo-600 h-screen flex flex-col justify-between uppercase text-sm tracking-widest font-bold">
+<nav class="bg-indigo-600 min-h-screen flex flex-col justify-between uppercase text-sm tracking-widest font-bold">
     <ul class="">
-        <img class="mx-auto w-10 my-4" src="{{ logo }}" alt="logo" />
+        <img class="mx-auto w-32 my-4" src="{{ logo }}" alt="logo" />
         <hr>
-        <li class="flex items-center border-y border-indigo-500 py-3 px-5">
-            <svg class="fill-current text-white w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-            <a class="text-white text-opacity-70 hover:text-opacity-100" routerLink="register-decider"
-            >Decisor</a
-        >
+        <li class="transition delay-150 flex items-center border-y border-indigo-500 hover:bg-indigo-500">
+            <a class="transition hover:translate-x-2 ease-in-out delay-150 duration-300 py-3 px-5 w-full flex items-center text-white text-opacity-70 hover:text-opacity-100" routerLink="/list-decider">
+                <fa-icon class="text-lg mr-3" [icon]="faUser"></fa-icon>
+                Decisor
+            </a>
         </li>
-        <li class="flex items-center border-y border-indigo-500 py-3 px-5">
-            <svg class="fill-current text-white w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-            <a class="text-white text-opacity-70 hover:text-opacity-100" routerLink=""
-            >Criterio</a
-        >
+        <li class="transition delay-150 py-3 px-5 flex items-center border-y border-indigo-500 hover:bg-indigo-500">
+            <a class="transition hover:translate-x-2 ease-in-out delay-150 duration-300 w-full flex items-center text-white text-opacity-70 hover:text-opacity-100" routerLink="/list-problem">
+                <fa-icon class="text-lg mr-3" [icon]="faXmarkSquare"></fa-icon>
+                Problema
+            </a>
         </li>
-        <li class="flex items-center border-y border-indigo-500 py-3 px-5">
-            <svg class="fill-current text-white w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-            <a class="text-white text-opacity-70 hover:text-opacity-100" routerLink=""
-            >Alternativa</a
-        >
-        </li>
-        <li class="flex items-center border-y border-indigo-500 py-3 px-5">
-            <svg class="fill-current text-white w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-            <a class="text-white text-opacity-70 hover:text-opacity-100" routerLink=""
-            >Problema</a
-        >
+        <li class="transition delay-150 py-3 px-5 flex items-center border-y border-indigo-500 hover:bg-indigo-500">
+            <a class="transition hover:translate-x-2 ease-in-out delay-150 duration-300 w-full flex items-center text-white text-opacity-70 hover:text-opacity-100" routerLink="/chart">
+                <fa-icon class="text-lg mr-3" [icon]="faChartColumn"></fa-icon>
+                Estadisticas
+            </a>
         </li>
     </ul>
-    <a routerLink="login" class="flex items-center py-2 justify-center bg-indigo-800 hover:bg-indigo-900 text-white">
-        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+    <a routerLink="/login" class="duration-300 flex items-center py-2 justify-center bg-indigo-800 hover:bg-indigo-900 text-white">
+        <fa-icon class="text-lg mr-3" [icon]="faArrowRightFromBracket"></fa-icon>
         Cerrar sesión
     </a>
 </nav>
