@@ -10,28 +10,38 @@ import { ListProblemComponent } from './components/list-problem/list-problem.com
 import { HomeComponent } from './components/home/home.component';
 import { ListDeciderComponent } from './components/list-decider/list-decider.component';
 import { RegisterProblemComponent } from './components/register-problem/register-problem.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { EditProblemComponent } from './components/edit-problem/edit-problem.component';
+import { EditDeciderComponent } from './components/edit-decider/edit-decider.component';
+import { RegisterCriterionComponent } from './components/register-criterion/register-criterion.component';
+import { RegisterAlternativeComponent } from './components/register-alternative/register-alternative.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
   {path: '', component:HomeComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'login'},
+  // {path: '', pathMatch: 'full', redirectTo: 'login'},
   {path: 'login', component:LoginComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'contact'},
+  // {path: '', pathMatch: 'full', redirectTo: 'contact'},
   {path: 'contact', component:ContactComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'register'},
+  // {path: '', pathMatch: 'full', redirectTo: 'register'},
   {path: 'register', component:RegisterComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'register-decider'},
+  // {path: '', pathMatch: 'full', redirectTo: 'register-decider'},
   {path: 'register-decider', component:RegisterDeciderComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'chart'},
+  // {path: '', pathMatch: 'full', redirectTo: 'chart'},
   {path: 'chart', component:ChartComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'problem'},
+  // {path: '', pathMatch: 'full', redirectTo: 'problem'},
   {path: 'problem', component:ProblemComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'list-decider'},
+  // {path: '', pathMatch: 'full', redirectTo: 'list-decider'},
   {path: 'list-decider', component:ListDeciderComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'register-problem'},
+  // {path: '', pathMatch: 'full', redirectTo: 'register-problem'},
   {path: 'register-problem', component:RegisterProblemComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'list-problem'},
+  // {path: '', pathMatch: 'full', redirectTo: 'list-problem'},
   {path: 'list-problem', component:ListProblemComponent},
+  {path: 'password-reset', component:PasswordResetComponent},
+  {path: 'edit-problem', component:EditProblemComponent},
+  {path: 'register-criterion', component:RegisterCriterionComponent},
+  {path: 'register-alternative', component:RegisterAlternativeComponent},
+  {path: 'edit-decider', component:EditDeciderComponent},
 ];
 
 @NgModule({

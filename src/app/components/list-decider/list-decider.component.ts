@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEdit, faEye  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list-decider',
@@ -14,5 +14,7 @@ export class ListDeciderComponent implements OnInit {
   }
 
   faUser = faUser;
+  faEdit = faEdit;
+  faEye = faEye;
 
 }

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-register-problem',
-  templateUrl: './register-problem.component.html',
-  styleUrls: ['./register-problem.component.scss'],
+  selector: 'app-edit-problem',
+  templateUrl: './edit-problem.component.html',
+  styleUrls: ['./edit-problem.component.scss']
 })
-export class RegisterProblemComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
+export class EditProblemComponent implements OnInit {
 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  
   input:any = {
     title: 'Título del problema',
     name: 'problem',

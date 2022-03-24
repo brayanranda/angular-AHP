@@ -23,6 +23,12 @@ import { InputComponent } from './components/layout/input/input.component';
 import { TextareaComponent } from './components/layout/textarea/textarea.component';
 import { ButtonComponent } from './components/layout/button/button.component';
 import { ProblemComponent } from './components/problem/problem.component';
+import { ListCriterionComponent } from './components/list-criterion/list-criterion.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { EditProblemComponent } from './components/edit-problem/edit-problem.component';
+import { EditDeciderComponent } from './components/edit-decider/edit-decider.component';
+import { RegisterCriterionComponent } from './components/register-criterion/register-criterion.component';
+import { RegisterAlternativeComponent } from './components/register-alternative/register-alternative.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +50,12 @@ import { ProblemComponent } from './components/problem/problem.component';
     TextareaComponent,
     ButtonComponent,
     ProblemComponent,
+    ListCriterionComponent,
+    PasswordResetComponent,
+    EditProblemComponent,
+    EditDeciderComponent,
+    RegisterCriterionComponent,
+    RegisterAlternativeComponent,
   ],
   imports: [
     BrowserModule,

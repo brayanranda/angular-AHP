@@ -7,6 +7,7 @@ import { faCheck, faSitemap, faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./problem.component.scss']
 })
 export class ProblemComponent implements OnInit {
+  diagrama: string = './assets/images/diagrama.png';
 
   constructor() { }
 
