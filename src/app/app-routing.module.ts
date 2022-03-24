@@ -18,8 +18,8 @@ import { RegisterAlternativeComponent } from './components/register-alternative/
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
-  {path: '', component:HomeComponent},
   // {path: '', pathMatch: 'full', redirectTo: 'login'},
+  {path: '', component:LoginComponent},
   {path: 'login', component:LoginComponent},
   // {path: '', pathMatch: 'full', redirectTo: 'contact'},
   {path: 'contact', component:ContactComponent},
