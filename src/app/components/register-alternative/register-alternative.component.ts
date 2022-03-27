@@ -12,4 +12,10 @@ export class RegisterAlternativeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  textarea:any = {
+    title: 'Descripción',
+    name: 'description',
+    placeholder: 'Lorem ipsum',
+  };
+
 }
