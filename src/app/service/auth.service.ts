@@ -4,13 +4,14 @@ import { NewUser } from '../models/new-user';
 import { Observable } from 'rxjs';
 import { JwtDto } from '../models/jwt-dto';
 import { LoginUser } from '../models/login-user';
-import * as global from 'global'
+//import * as global from 'global'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  authURL = `${global.url}/auth/`;
+//  authURL = `${global.url}/auth/`;
+  authURL = `https://ahp-ten.vercel.app//auth/`;
 
   constructor(private httpClient: HttpClient) { }
 
