@@ -2,6 +2,7 @@ import * as global from 'global'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,14 @@ export class ProblemService {
   public getProblems():Observable<any>{
     return this.http.get<any>(this.url);
   }
-
-  public post(problema:any):Observable<any>{
+  // user: User
+  public post(problema:any, ):Observable<any>{
     return this.http.post<any>(this.url, problema)
+  }
+
+  public post2(usuario:any, ):Observable<any>{
+    console.log(usuario);
+    return this.http.post<any>(this.url, usuario)
   }
 
   editProblem(id:string,problema:any):Observable<any>{
