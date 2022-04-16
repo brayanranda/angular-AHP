@@ -7,6 +7,21 @@
                 <h1 class="text-4xl mb-5 text-indigo-500">{{title}}</h1>
                 <!-- <app-input [input]="input"></app-input>
                 <app-textarea [textarea]="textarea"></app-textarea> -->
+                <div class="mb-5 relative">
+                    <span class="contact100-form-combo">Usuario</span>
+                    <div
+                        class="flex justify-between placeholder-indigo-600 p-3 bg-indigo-100 appearance-none border-2 border-transparent rounded-md w-full text-indigo-700 leading-tight focus:bg-white focus:border-indog-600 focus:border-indigo-600">
+                        <select class="bg-transparent w-full" formControlName="usuario"
+                            aria-label="Default select example" placeholder="usuario">
+                            <option value="">Seleccion un usuario</option>
+                            <option *ngFor="let usuario of usuarios" name="usuario" id="{{usuario.email}}"
+                                value={{usuario.email}}>
+                                {{usuario.nombre}}</option>
+                        </select>
+                        <!-- <i class="ico-select"></i> -->
+                    </div>
+                </div>
+                <!-- <button (click)="loadUser()">cargar</button> -->
                 <div class="mb-5">
                     <p class="mb-2">{{textarea.title}}</p>
                     <textarea formControlName="description" name="description" placeholder={{textarea.placeholder}}
