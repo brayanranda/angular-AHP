@@ -17,11 +17,13 @@ import { EditProblemComponent } from './components/edit-problem/edit-problem.com
 import { EditDeciderComponent } from './components/edit-decider/edit-decider.component';
 import { RegisterCriterionComponent } from './components/register-criterion/register-criterion.component';
 import { RegisterAlternativeComponent } from './components/register-alternative/register-alternative.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 const routes: Routes = [
   // {path: '', pathMatch: 'full', redirectTo: ''},
   { path: '', component: LoginComponent },
   {path: 'login', component:LoginComponent},
+  {path: 'login/confirmation/:idConfirmation', component:ConfirmationComponent},
   {path: 'contact', component:ContactComponent},
   {path: 'register', component:RegisterComponent},
   {path: 'register-decider', component:RegisterDeciderComponent},
@@ -31,12 +33,15 @@ const routes: Routes = [
   {path: 'register-problem', component:RegisterProblemComponent},
   {path: 'list-problem', component:ListProblemComponent},
   {path: 'password-reset', component:PasswordResetComponent},
-  {path: 'password', component:PasswordComponent},
-  {path: 'edit-problem', component:EditProblemComponent},
+  {path: 'password-reset/confirmation/:idConfirmation', component:PasswordComponent},
   {path: 'register-criterion', component:RegisterCriterionComponent},
   {path: 'register-alternative', component:RegisterAlternativeComponent},
   {path: 'edit-decider', component:EditDeciderComponent},
   {path: 'qualify', component:QualifyComponent},
+  
+  // {path: 'edit-problem', component:EditProblemComponent},
+  {path:"edit-problem/:idProblema", component:RegisterProblemComponent},
+
 ];
 
 @NgModule({
