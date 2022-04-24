@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from 'src/app/service/token.service';
 import { ProblemService } from 'src/app/service/problem.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-problem',
@@ -12,10 +13,11 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RegisterProblemComponent implements OnInit {
   public form!: FormGroup;
-  title:string = 'Registrar problema';
-  btn:string = 'Agregar'; 
-  id: string | null;  
-  usuario:any = localStorage.getItem('email');
+  title: string = 'Registrar problema';
+  btn: string = 'Agregar';
+  id: string | null;
+  iduser:any;
+  usuario: any = localStorage.getItem('email');
 
   constructor(
     private problemService: ProblemService,
@@ -23,36 +25,35 @@ export class RegisterProblemComponent implements OnInit {
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private aRouter: ActivatedRoute,
+    private toastr: ToastrService,
+    private aRouter: ActivatedRoute
   ) {
-    this.id = aRouter.snapshot.paramMap.get('problem');
+    this.id = aRouter.snapshot.paramMap.get('idProblema');
   }
   ngOnInit(): void {
     this.loaderToken();
-    this.isEdit();
-    
+      this.isEdit();
+      console.log(this.id);
+
     this.form = this.formBuilder.group({
       usuario: {},
-      description: ['',
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(500)
-      ])],
-      fecha_finalizacion: ['', Validators.required],
+      descripcion: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(500)]),
+      ],
+      fechaFinalizacion: ['', Validators.required],
+      fechaCreacion: ['', Validators.required],
     });
-    console.log(this.form.value);
-    console.log(typeof(this.form));
-    
   }
 
-  input:any = {
+  input: any = {
     title: 'Título del problema',
     name: 'nameproblem',
     placeholder: 'Lorem ipsum',
     type: 'text',
   };
-  
-  textarea:any = {
+
+  textarea: any = {
     title: 'Descripción',
     name: 'description',
     placeholder: 'Lorem ipsum',
@@ -61,49 +62,97 @@ export class RegisterProblemComponent implements OnInit {
   sendData() {
     this.problemService.getUser(this.usuario).subscribe((el) => {
       this.form.patchValue({
-        usuario: el
-      })
-      console.log('edede',this.form.value);      
-    });
-        
-    if (!this.form.valid) {
-      console.log('error en send data valid');
-      return;
-    }
-
-    this.problemService.post(this.form.value)
-      .subscribe(data => {
-        console.log('Agregado con exito');
+        usuario: el,
       });
-    this.sendData()
+      if (!this.form.valid) {
+        this.toastr.error('¡Datos incorrectos!', 'ERROR', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+        console.log('error en send data valid');
+        return;
+      }
+
+      if (this.id !== null) {
+        this.problemService.getUser(this.usuario).subscribe((el) => {
+          this.form.patchValue({
+            usuario: el,
+          });
+          if (this.id !== null) {
+            this.form.value.idProblema = this.id;
+            this.problemService
+              .editProblem(this.id, this.form.value).subscribe((data) => {
+                this.toastr.success('Problema Editado Con Exito!', 'Problema Editado', {
+                  positionClass: 'toast-bottom-right' 
+                })
+              });
+              this.toastr.success('Problema Editado Con Exito!', 'Problema Editado', {
+                positionClass: 'toast-bottom-right' 
+              })
+              this.router.navigate(["/list-problem"]);
+            }
+          });
+      } else {
+        this.problemService.post(this.form.value).subscribe(
+          (data) => {
+            console.log('Agregado con exito');
+          },
+          (error) => {
+            if (error.status == 200) {
+              this.router.navigate(['/list-problem']);
+              this.toastr.success('Problema creado', 'OK', {
+                positionClass: 'toast-top-center',
+                timeOut: 3000,
+              });
+            }
+          }
+        );
+      }
+    });
   }
 
   isEdit() {
-    if (this.id !== null) {
-      this.title = 'Editar problema';
-      this.btn = 'Editar problema';
-      this.problemService.getProblem(this.id).subscribe((data) => {
-        this.form.setValue({
-          nombre: data.nombre,
-          problem: data.problem,
-          descripcion: data.descripcion,
-          // usuario: data.usuario,
-        });
-        const output = document.getElementById('idProblem');
-        if (output){
-          output.setAttribute("value",data.problem)
-        }
+    console.log('feo');
+    
+    this.problemService.getUser(this.usuario).subscribe((el) => {
+      console.log('entre');      console.log('id1: ',this.id);
+
+      this.form.patchValue({
+        usuario: el,
       });
-    }
+  
+      if (this.id !== null) {
+      console.log('id2: ',this.id);
+
+        this.title = 'Editar problema';
+        this.btn = 'Editar';
+        this.problemService.getProblem(this.id).subscribe((data) => {
+          console.log(data);
+      console.log('id3: ',this.id);
+          
+          this.form.setValue({
+            fechaCreacion: data.fechaCreacion,
+            fechaFinalizacion: data.fechaFinalizacion,
+            descripcion: data.descripcion,
+            usuario: this.usuario,
+          });
+          const output = document.getElementById('idProblema');
+          if (output) {
+            output.setAttribute('value', data.idProblema);
+          }
+        });
+      }
+      console.log('id4'+this.id);
+      
+    });
   }
 
   public loaderToken() {
     if (this.tokenService.getToken()) {
-      if(this.tokenService.getAuthorities().length < 2){
-      this.router.navigateByUrl("/register-problem");
+      if (this.tokenService.getAuthorities().length < 2) {
+        this.router.navigateByUrl('/register-problem');
       }
     } else {
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl('/login');
     }
   }
 }

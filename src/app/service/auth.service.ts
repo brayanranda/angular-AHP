@@ -23,9 +23,27 @@ export class AuthService {
     return this.httpClient.post<JwtDto>(this.authURL + 'login', loginUser);
   }
 
+  public cambiarPassword(loginUser: LoginUser, token:string): Observable<JwtDto> {
+    return this.httpClient.post<JwtDto>(this.authURL + 'recuperar/'+token, loginUser);
+  }
+
+  public solicitudCambioPassword(email:string): Observable<any>{
+    return this.httpClient.get<any>(this.authURL+"solicitudPassword/"+email)
+  }
+
+  public confirmacionCuenta(token:string): Observable<any>{
+    return this.httpClient.get<any>(this.authURL+"confirmacion/"+token)
+  }
+
   public getUsers():Observable<any> {
-    console.log('entre');
-    
+    console.log('entre');    
     return this.httpClient.get<any>(this.url);
   }
+
+  user=`${global.url}/usuario/usuarioPorEmail/`;
+
+  public getUser(email:string):Observable<any> {
+    return this.httpClient.get<any>(this.user+email);
+  }
+
 }

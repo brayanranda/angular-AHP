@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginUser } from 'src/app/models/login-user';
 import { AuthService } from 'src/app/service/auth.service';
 import { TokenService } from 'src/app/service/token.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
     private tokenService:TokenService,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+
   ) { }
   
   ngOnInit(): void {
@@ -88,6 +89,14 @@ export class LoginComponent implements OnInit {
   guardarData() {
     localStorage.setItem("isLogged", "true");
     localStorage.setItem("email", this.loginInfo.value.email);
+
+    if (!this.loginInfo.valid) {
+      this.toastr.error('Datos incorrectos', 'ERROR', {
+        timeOut: 3000,
+        positionClass: 'toast-top-center',
+      });
+      return;
+    }
   
     this.authService.login(this.loginInfo.value).subscribe(
       (data) => {
@@ -95,8 +104,14 @@ export class LoginComponent implements OnInit {
         this.tokenService.setToken(data.token);
         this.tokenService.setEmail(data.email);
         this.tokenService.setAuthorities(data.authorities);
+
         this.roles = data.authorities;
-        this.router.navigate(['/list-decider']);
+        this.router.navigate(['/list-problem']);
+
+        this.toastr.success('Bienvenido ', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+        });
       },
       (err) => {
         this.isLogged = false;
@@ -104,9 +119,17 @@ export class LoginComponent implements OnInit {
         this.isLoginFail = true;
         
         if (typeof err.error == 'object') {
-          console.log("error")
+          this.toastr.error('Contraseña incorrecta', '', {
+            timeOut: 3000,
+            positionClass: 'toast-bottom-center',
+          });
           return;
         }
+
+        this.toastr.error(this.errMsj, '', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+        });
       }
       );
   }
