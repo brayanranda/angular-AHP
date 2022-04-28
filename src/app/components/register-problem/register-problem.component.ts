@@ -31,10 +31,9 @@ export class RegisterProblemComponent implements OnInit {
     this.id = aRouter.snapshot.paramMap.get('idProblema');
   }
   ngOnInit(): void {
-    this.loaderToken();
+    if(this.id!=null){
       this.isEdit();
-      console.log(this.id);
-
+    }
     this.form = this.formBuilder.group({
       usuario: {},
       descripcion: [
@@ -42,7 +41,9 @@ export class RegisterProblemComponent implements OnInit {
         Validators.compose([Validators.required, Validators.maxLength(500)]),
       ],
       fechaFinalizacion: ['', Validators.required],
-      fechaCreacion: ['', Validators.required],
+      fechaCreacion: [new Date],
+      token:[' ']
+
     });
   }
 
@@ -64,6 +65,7 @@ export class RegisterProblemComponent implements OnInit {
       this.form.patchValue({
         usuario: el,
       });
+      console.log(this.form);
       if (!this.form.valid) {
         this.toastr.error('¡Datos incorrectos!', 'ERROR', {
           timeOut: 3000, positionClass: 'toast-top-center'
@@ -94,16 +96,18 @@ export class RegisterProblemComponent implements OnInit {
       } else {
         this.problemService.post(this.form.value).subscribe(
           (data) => {
-            console.log('Agregado con exito');
-          },
-          (error) => {
-            if (error.status == 200) {
-              this.router.navigate(['/list-problem']);
+            this.router.navigate(['/list-problem']);
               this.toastr.success('Problema creado', 'OK', {
                 positionClass: 'toast-top-center',
                 timeOut: 3000,
               });
-            }
+              this.router.navigate(["/list-problem"]);
+          },
+          (error) => {
+            this.toastr.error(error.mensaje, 'ERROR', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         );
       }
@@ -111,48 +115,29 @@ export class RegisterProblemComponent implements OnInit {
   }
 
   isEdit() {
-    console.log('feo');
-    
     this.problemService.getUser(this.usuario).subscribe((el) => {
-      console.log('entre');      console.log('id1: ',this.id);
-
       this.form.patchValue({
         usuario: el,
       });
-  
+      
       if (this.id !== null) {
-      console.log('id2: ',this.id);
-
         this.title = 'Editar problema';
         this.btn = 'Editar';
         this.problemService.getProblem(this.id).subscribe((data) => {
-          console.log(data);
-      console.log('id3: ',this.id);
-          
           this.form.setValue({
             fechaCreacion: data.fechaCreacion,
             fechaFinalizacion: data.fechaFinalizacion,
             descripcion: data.descripcion,
             usuario: this.usuario,
+            token:data.token
           });
           const output = document.getElementById('idProblema');
           if (output) {
             output.setAttribute('value', data.idProblema);
           }
+          console.log(this.form.value);
         });
       }
-      console.log('id4'+this.id);
-      
     });
-  }
-
-  public loaderToken() {
-    if (this.tokenService.getToken()) {
-      if (this.tokenService.getAuthorities().length < 2) {
-        this.router.navigateByUrl('/register-problem');
-      }
-    } else {
-      this.router.navigateByUrl('/login');
-    }
   }
 }

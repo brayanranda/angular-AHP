@@ -18,6 +18,10 @@ export class AuthService {
   public new(newUser: NewUser): Observable<any> {
     return this.httpClient.post<any>(this.authURL + 'nuevo', newUser);
   }
+  public editUser(user:any):Observable<any>{
+    return this.httpClient.put<any>(this.url, user);
+
+  }
 
   public login(loginUser: LoginUser): Observable<JwtDto> {
     return this.httpClient.post<JwtDto>(this.authURL + 'login', loginUser);
@@ -44,6 +48,9 @@ export class AuthService {
 
   public getUser(email:string):Observable<any> {
     return this.httpClient.get<any>(this.user+email);
+  }
+  public addDecider(idProblema:string, decisor:any):Observable<any> {
+    return this.httpClient.post<any>(this.user+"decisor/"+idProblema,decisor);
   }
 
 }
