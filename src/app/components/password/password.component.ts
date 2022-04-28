@@ -33,10 +33,25 @@ export class PasswordComponent implements OnInit {
         '',
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
+      passwordConfirmation: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ]
     })
   }
 
   public enviarPassword(){
+
+    let pass= (this.password.value.password);
+    let passConfirm=(this.password.value.passwordConfirmation);
+
+    if(pass!=passConfirm){
+      this.toastr.warning("Las contraseñas no coinciden", "WARN", {
+        positionClass: 'toast-top-center',
+        timeOut: 3000
+       })
+       return;
+    }
 
     let infoLogin = {
       email:" ",
@@ -44,21 +59,17 @@ export class PasswordComponent implements OnInit {
     }
 
     this.authService.cambiarPassword(infoLogin,this.idConfirmation).subscribe(res=>{
-      console.log(res);
+      this.toastr.success("Contraseña cambiada", "OK", {
+        positionClass: 'toast-top-center',
+        timeOut: 3000
+       })
+       this.route.navigateByUrl("")
     },error=>{
-      if(error.status==200){
-        this.toastr.success("Contraseña cambiada", "OK", {
-          positionClass: 'toast-top-center',
-          timeOut: 3000
-         })
-          
-        this.route.navigateByUrl("")
-      }else{
-        this.toastr.error(error.error.text, "ERROR", {
+        console.log(error);
+        this.toastr.error(error.mensaje, "ERROR", {
           positionClass: 'toast-top-center',
           timeOut: 3000
          }) 
-      }
     })
   }
 
