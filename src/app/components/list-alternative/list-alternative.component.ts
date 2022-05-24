@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { faEdit, faEye, faXmarkSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { CriterionService } from '../../service/criterion.service';
+import { AlternativeService } from '../../service/alternative.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-list-criterion',
-  templateUrl: './list-criterion.component.html',
-  styleUrls: ['./list-criterion.component.scss']
+  selector: 'app-list-alternative',
+  templateUrl: './list-alternative.component.html',
+  styleUrls: ['./list-alternative.component.scss']
 })
-export class ListCriterionComponent implements OnInit {
+export class ListAlternativeComponent implements OnInit {
   faXmarkSquare = faXmarkSquare;
   faEdit = faEdit;
   faEye = faEye;
@@ -18,12 +18,12 @@ export class ListCriterionComponent implements OnInit {
   public data: Array<any> = [];
 
   constructor(
-    private criterionService: CriterionService,
+    private alternativeService: AlternativeService,
     private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    this.criterionService.getCriterions().subscribe((resp:any)=>{
+    this.alternativeService.getAlternatives().subscribe((resp:any)=>{
       this.data = resp;
     })
   }
