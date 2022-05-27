@@ -30,7 +30,6 @@ import { ButtonComponent } from './components/layout/button/button.component';
 import { ProblemComponent } from './components/problem/problem.component';
 import { ListCriterionComponent } from './components/list-criterion/list-criterion.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
-import { EditDeciderComponent } from './components/edit-decider/edit-decider.component';
 import { RegisterCriterionComponent } from './components/register-criterion/register-criterion.component';
 import { RegisterAlternativeComponent } from './components/register-alternative/register-alternative.component';
 import { QualifyComponent } from './components/qualify/qualify.component';
@@ -44,6 +43,8 @@ import { AccessGuard } from './guards/AccessGuard';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditCriterionComponent } from './components/edit-criterion/edit-criterion.component';
 import { ListAlternativeComponent } from './components/list-alternative/list-alternative.component';
+import { QualifyAlternativesComponent } from './components/qualify-alternatives/qualify-alternatives.component';
+import { ResultComponent } from './components/result/result.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,6 @@ import { ListAlternativeComponent } from './components/list-alternative/list-alt
     ProblemComponent,
     ListCriterionComponent,
     PasswordResetComponent,
-    EditDeciderComponent,
     RegisterCriterionComponent,
     RegisterAlternativeComponent,
     QualifyComponent,
@@ -75,6 +75,8 @@ import { ListAlternativeComponent } from './components/list-alternative/list-alt
     EditUserComponent,
     EditCriterionComponent,
     ListAlternativeComponent,
+    QualifyAlternativesComponent,
+    ResultComponent,
   ],
   imports: [
     BrowserModule,

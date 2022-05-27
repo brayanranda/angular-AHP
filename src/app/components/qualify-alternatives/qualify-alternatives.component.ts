@@ -6,11 +6,11 @@ import { ProblemService } from 'src/app/service/problem.service';
 import { QulifyService } from 'src/app/service/qulify.service';
 
 @Component({
-  selector: 'app-qualify',
-  templateUrl: './qualify.component.html',
-  styleUrls: ['./qualify.component.scss']
+  selector: 'app-qualify-alternatives',
+  templateUrl: './qualify-alternatives.component.html',
+  styleUrls: ['./qualify-alternatives.component.scss']
 })
-export class QualifyComponent implements OnInit {
+export class QualifyAlternativesComponent implements OnInit {
 
   emailDecisor!:any;
   tokenProblem!:any;
@@ -18,14 +18,15 @@ export class QualifyComponent implements OnInit {
   msg:string="";
   problema!:any;
   criteriosComparados!:any;
-  criterios!:any;
+  alternatives!:any;
   puntajes:any[] = [];
+  totalCriterios=0;
 
   constructor(
     private qualifyService:QulifyService,
     private aRouter: ActivatedRoute,
-    private router: Router,
     private toastr: ToastrService,
+    private router: Router,
     private problemS:ProblemService,
     ) {
       this.tokenProblem = aRouter.snapshot.paramMap.get('idProblema');
@@ -36,16 +37,16 @@ export class QualifyComponent implements OnInit {
     this.getAccess(this.emailDecisor,this.tokenProblem)
     this.getProblem();
     this.getPairsCriterion();
-    this.getCriterios();
+    this.getAlternatives();
+    this.getCriterion();
   }
 
   public cambiarPuntaje(valor:number, idPuntaje:number){
-    
     for (let i = 0; i < this.puntajes.length; i++) {
       let puntaje = this.puntajes[i];
-      if(puntaje.puntuacionCriterio == idPuntaje){
+      if(puntaje.puntuacionAlternativaCriterio == idPuntaje){
         let copiaPuntaje = {
-          puntuacionCriterio:puntaje.puntuacionCriterio,
+          puntuacionAlternativaCriterio:puntaje.puntuacionAlternativaCriterio,
           valor:valor,
           decisor:{
             email:puntaje.decisor.email
@@ -55,34 +56,32 @@ export class QualifyComponent implements OnInit {
       break;
     }
     }
-    // console.log(this.puntajes);
   }
 
   public getPairsCriterion(){
-    this.qualifyService.getPairsCriterion(this.tokenProblem).subscribe(pairs=>{
+    this.qualifyService.getPairsCriterionAlternative(this.tokenProblem).subscribe(pairs=>{
       this.criteriosComparados = pairs;
-      // console.log(this.criteriosComparados);
       for (let i = 0; i < this.criteriosComparados.length; i++) {
         this.puntajes.push({
-          puntuacionCriterio:this.criteriosComparados[i].idPuntuacionDecisor,
+          puntuacionAlternativaCriterio:this.criteriosComparados[i].idPuntuacionAltCrit,
           valor:-1,
           decisor:{
             email:this.emailDecisor
           }
         })
       }
-
     })
   }
 
   public guardarPuntajes(){
-    this.qualifyService.saveQualifies(this.puntajes).subscribe(
+    this.qualifyService.saveQualifiesAlternatives(this.puntajes).subscribe(
       (resp)=>{
-        this.router.navigate(["/qualify-alternatives",this.tokenProblem,this.emailDecisor]);
+        
+        this.router.navigate(["/result",this.tokenProblem,this.emailDecisor]);
         this.toastr.success(resp.mensaje, "Calificación de criterios guardado", {
           positionClass: 'toast-top-center',
           timeOut: 3000
-        })
+         })
       },
       (error) => {
         this.toastr.error(error, "Error al guardar Calificación de criterios ", {
@@ -90,15 +89,21 @@ export class QualifyComponent implements OnInit {
           timeOut: 3000
          })
       }
-    )
+      )
   }
 
-  public getCriterios(){
-    this.qualifyService.getCriterionProblem(this.tokenProblem).subscribe(criterios=>{
-      this.criterios=criterios;
-      for(let i = 0; i < this.criterios.length; i++) {
+  public getAlternatives(){
+    this.qualifyService.getAlternativeProblem(this.tokenProblem).subscribe(el=>{
+      this.alternatives=el;
+      for(let i = 0; i < this.alternatives.length; i++) {
         
       }
+    })
+  }
+
+  public getCriterion(){
+    this.qualifyService.getCriterionProblem(this.tokenProblem).subscribe(el=>{
+      this.totalCriterios=el.length
     })
   }
 
