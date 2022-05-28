@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemService } from '../../service/problem.service';
 import { Subject } from 'rxjs';
-import { faEdit, faEye, faXmarkSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faXmarkSquare, faPlus, faCheck, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-// import { TokenService } from 'src/app/service/token.service';
-// import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-list-problem',
@@ -13,15 +12,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ListProblemComponent implements OnInit {
   dtTrigger = new Subject<any>();
-  // public data: any[]=[];
   public data: Array<any> = [];
   public email:any = localStorage.getItem('email');
+
   constructor(
+    private location:Location,
     private problemService: ProblemService,
     private toastr: ToastrService,
-    // private tokenS:TokenService,
-    // private router : Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.problemService.getProblemsUser(this.email).subscribe((resp:any)=>{
@@ -43,8 +42,24 @@ export class ListProblemComponent implements OnInit {
     })
   }
 
+  habilitar(token:string){
+    this.problemService.activateProblem(token).subscribe(rep=>{
+      this.toastr.success("Problema habilitado", "OK", {
+        positionClass: 'toast-top-center',
+        timeOut: 3000
+       })
+       window.location.reload();
+    })
+  }
+
+  goBack():void {
+    this.location.back();
+  }
+
   faXmarkSquare = faXmarkSquare;
   faEdit = faEdit;
   faEye = faEye;
   faPlus = faPlus;
+  faCheck=faCheck;
+  faLeftLong = faLeftLong;
 }

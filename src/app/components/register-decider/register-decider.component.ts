@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DeciderService } from 'src/app/service/decider.service';
 import { ProblemService } from 'src/app/service/problem.service';
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-register-decider',
   templateUrl: './register-decider.component.html',
@@ -19,11 +19,13 @@ export class RegisterDeciderComponent implements OnInit {
   public deciderInfo!:FormGroup
   idProblema: string | null;
   constructor(
+    private location:Location,
     private problemS:ProblemService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private deciderS:DeciderService,
     private aRouter: ActivatedRoute,
+    private router: Router,
   ) { 
     this.idProblema = aRouter.snapshot.paramMap.get('idProblema');
   }
@@ -53,7 +55,10 @@ export class RegisterDeciderComponent implements OnInit {
        return;
     }
 
+    this.deciderInfo.value.problema = this.idProblema;
+    
     this.deciderS.saveDeciderByProblem(this.deciderInfo.value).subscribe(resp=>{
+      this.router.navigate(['/list-decider/',this.idProblema]);
       this.toastr.success("Decisor agregado correctamente, se ha enviado un correo al email del decisor", "OK", {
         positionClass: 'toast-top-center',
         timeOut: 3000
@@ -71,6 +76,10 @@ export class RegisterDeciderComponent implements OnInit {
       this.problems = resp;
       this.problems = this.problems.filter(problem => problem.token == this.idProblema);
     })
+  }
+
+  goBack():void {
+    this.location.back();
   }
 
 }
